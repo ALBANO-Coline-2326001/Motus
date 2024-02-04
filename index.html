@@ -137,18 +137,19 @@ en fonction de la taille du mot*/
 
     </script>
 
+    <div class="jeu">
+        <h1 class="titremotus"> <br><span class="auto-typing"></span></h1>
+        La page des règles du jeu : <a href="page/Regles.html">Les règles </a>
 
-    La page des règles du jeu : <a href="page/Regles.html">Les règles </a>
+        <form name='saisie'>
+            <br />Votre essai : <input type='text' name='nom'>
+            <br /> <span>(Entrez un espace pour relancer la partie)</span>
+            <br /><input type='Button' value='Entrer mon essai' onclick='afficher_resultat()' class="bouton" ;>
+        </form>
 
-    <form name='saisie'>
-        <br />Votre essai : <input type='text' name='nom'>
-        <br /> <span>(Entrez un espace pour relancer la partie)</span>
-        <br /><input type='Button' value='Entrer mon essai' onclick='afficher_resultat()' class="bouton" ;>
-    </form>
-
-    <p id='reponse1'></p>
-    <p id='reponse2'></p>
-
+        <p id='reponse1'></p>
+        <p id='reponse2'></p>
+    </div>
 
     <form name='tableau3'>
         <table>
@@ -388,6 +389,17 @@ en fonction de la taille du mot*/
     </form>
 
     <p id='reponse3'>.</p>
+
+    <!-- Script auto-typing -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed('.auto-typing', {
+            strings: ["Motus"],
+            typeSpeed: 200,
+            backSpeed: 200,
+            loop: true,
+        });
+    </script>
 
 </body>
 
