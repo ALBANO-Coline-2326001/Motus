@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<link rel='stylesheet' href='css/projetstyle.css'>
+
+<head>
+    <title> Motus </title>
+    <META charset="UTF-8" />
+</head>
+
+<body onload=jouer()>
+    <br /><br /><br />
+
+    <script>
+
+        perdu = true;
+        compteur = 0
+        essai12 = 0
+
+        function jouer() {/* Choisis le mot secret au hasard dans une liste et affiche le bon tableau 
+en fonction de la taille du mot*/
+            secret1 = fmot_secret();
+            taille_mot = secret1.length
+            affichage(secret1)
+            document.getElementById("reponse1").innerHTML = 'La première lettre du mot est ' + secret1[0];
+        }
+
+
+        function fmot_secret() {/*Choisis un mot au hasard dans une liste*/
+            var listeDesMots = ['age', 'ail', 'boa', 'jet', 'chat', 'mou', 'oie', 'sac', 'vol', 'zoo', 'fumer',
+                'four', 'faon', 'kiwi', 'orange', 'marron', 'lune', 'soleil', 'larve', 'lit', 'belle', 'bois', 'pomme', 'banane', 'defi', 'chou', 'ile',
+                'ovni', 'chute', 'fou', 'maison', 'rat', 'clef', 'porte', 'colline', 'parfum', 'lampe', 'souris', 'veste', 'tapis', 'lunette', 'feuille', 'ranch', 'ruban',
+                'remuer', 'reve', 'rhume', 'rubis', 'rotir', 'singe', 'sirene', 'sirop', 'micro', 'monde', 'merle', 'lolo',
+                'corde', 'couteau', 'battre', 'carte', 'tartes', 'tarots', 'taxis', 'favoris', 'films', 'mariage', 'fantomes', 'naufrage', 'nettoyez', 'robes', 'nuancer'];
+            var n = listeDesMots.length;
+            var hasard = Math.floor(Math.random() * n)
+            secret0 = listeDesMots[hasard];
+            var decomps = secret0.split("");
+            document.getElementById("reponse1").innerHTML = decomps;
+            return decomps
+        }
+
+        function affichage(mot) {/* Affiche le bon tableau en fonction de la taille du mot secret*/
+            var n = mot.length;
+            if (n == 3) {
+                tableau4.style.display = 'none';
+                tableau5.style.display = 'none';
+                tableau6.style.display = 'none';
+                tableau7.style.display = 'none';
+            }
+            else if (n == 4) {
+                tableau3.style.display = 'none';
+                tableau5.style.display = 'none';
+                tableau6.style.display = 'none';
+                tableau7.style.display = 'none';
+            }
+            else if (n == 5) {
+                tableau3.style.display = 'none';
+                tableau4.style.display = 'none';
+                tableau6.style.display = 'none';
+                tableau7.style.display = 'none';
+            }
+            else if (n == 6) {
+                tableau3.style.display = 'none';
+                tableau4.style.display = 'none';
+                tableau5.style.display = 'none';
+                tableau7.style.display = 'none';
+            }
+            else if (n == 7) {
+                tableau3.style.display = 'none';
+                tableau4.style.display = 'none';
+                tableau5.style.display = 'none';
+                tableau6.style.display = 'none';
+            }
+            else { document.getElementById("reponse1").innerHTML = 'raté'; }
+        }
+
+
+        function afficher_resultat() {/* Fonction qui affiche les lettres du mot saisi dans les cases*/
+            var essaie = saisie.nom.value;
+            var decomp = essaie.split("");
+            var n = decomp.length;
+
+            if (secret0.toString() == essaie.toString()) {
+                document.getElementById("reponse3").innerHTML = 'Bravo, vous avez gagné. Le mot secret était bien : ' + secret0;
+                perdu = false;
+            }
+
+            if (compteur > 4) {
+                if (perdu) { document.getElementById("reponse3").innerHTML = 'Vous avez perdu. Le mot secret était bien : ' + secret0; }
+            }
+
+            if (taille_mot != n) { document.getElementById("reponse2").innerHTML = 'Votre mot doit contenir ' + taille_mot + ' lettres'; }
+
+            else {
+                for (let k = 0; k < n; k++) { document.getElementById("case" + taille_mot + compteur.toString() + k).innerHTML = decomp[k]; }
+                compteur = compteur + 1
+                compare_mot()
+                essai12 = essai12 + 1
+            }
+
+        }
+
+
+        function compare_mot() {/* fonction qui compare le mot tapé par l'utilisateur et le mot secret */
+            var essaie = saisie.nom.value;
+            var liste_mot_tapes = essaie.split("");
+
+            console.log('compare ' + liste_mot_tapes);
+            console.log('compare ' + secret1);
+
+            for (var k = 0; k < liste_mot_tapes.length; k++) {
+                console.log(liste_mot_tapes[k]);
+                var position_mot_tapes = k;
+                var lettre_mot_tapes = liste_mot_tapes[k];
+                var statut_lettre = "white";
+                for (n = 0; n < secret1.length; n++) {
+                    //console.log(n);
+                    var position_mot_secret = n;
+                    var lettre_mot_secret = secret1[n];
+                    if (lettre_mot_tapes == lettre_mot_secret) {
+                        if (position_mot_tapes == position_mot_secret) {
+                            statut_lettre = "red";
+                            console.log("red");
+                            break;
+                        }
+                        else {
+                            statut_lettre = "yellow";
+                            console.log("yellow");
+
+                        }
+                    }
+                }
+                document.getElementById("case" + taille_mot + essai12 + k).style.color = statut_lettre;
+            }
+            //assigner la couleur a la case en question ( nom de couleur déja mise )//
+        }
+
+    </script>
+
+
+    La page des règles du jeu : <a href="page/Regles.html">Les règles </a>
+
+    <form name='saisie'>
+        <br />Votre essai : <input type='text' name='nom'>
+        <br /> <span>(Entrez un espace pour relancer la partie)</span>
+        <br /><input type='Button' value='Entrer mon essai' onclick='afficher_resultat()' class="bouton" ;>
+    </form>
+
+    <p id='reponse1'></p>
+    <p id='reponse2'></p>
+
+
+    <form name='tableau3'>
+        <table>
+            <tr>
+                <td id='case300'>...</td>
+                <td id='case301'>...</td>
+                <td id='case302'>...</td>
+            </tr>
+            <tr>
+                <td id='case310'>...</td>
+                <td id='case311'>...</td>
+                <td id='case312'>...</td>
+            </tr>
+            <tr>
+                <td id='case320'>...</td>
+                <td id='case321'>...</td>
+                <td id='case322'>...</td>
+            </tr>
+            <tr>
+                <td id='case330'>...</td>
+                <td id='case331'>...</td>
+                <td id='case332'>...</td>
+            </tr>
+            <tr>
+                <td id='case340'>...</td>
+                <td id='case341'>...</td>
+                <td id='case342'>...</td>
+            </tr>
+            <tr>
+                <td id='case350'>...</td>
+                <td id='case351'>...</td>
+                <td id='case352'>...</td>
+            </tr>
+        </table>
+    </form>
+
+
+    <form name='tableau4'>
+        <table>
+            <tr>
+                <td id='case400'>...</td>
+                <td id='case401'>...</td>
+                <td id='case402'>...</td>
+                <td id='case403'>...</td>
+            </tr>
+            <tr>
+                <td id='case410'>...</td>
+                <td id='case411'>...</td>
+                <td id='case412'>...</td>
+                <td id='case413'>...</td>
+            </tr>
+            <tr>
+                <td id='case420'>...</td>
+                <td id='case421'>...</td>
+                <td id='case422'>...</td>
+                <td id='case423'>...</td>
+            </tr>
+            <tr>
+                <td id='case430'>...</td>
+                <td id='case431'>...</td>
+                <td id='case432'>...</td>
+                <td id='case433'>...</td>
+            </tr>
+            <tr>
+                <td id='case440'>...</td>
+                <td id='case441'>...</td>
+                <td id='case442'>...</td>
+                <td id='case443'>...</td>
+            </tr>
+            <tr>
+                <td id='case450'>...</td>
+                <td id='case451'>...</td>
+                <td id='case452'>...</td>
+                <td id='case453'>...</td>
+            </tr>
+        </table>
+
+    </form>
+
+    <form name='tableau5'>
+        <table>
+            <tr>
+                <td id='case500'>...</td>
+                <td id='case501'>...</td>
+                <td id='case502'>...</td>
+                <td id='case503'>...</td>
+                <td id='case504'>...</td>
+            </tr>
+            <tr>
+                <td id='case510'>...</td>
+                <td id='case511'>...</td>
+                <td id='case512'>...</td>
+                <td id='case513'>...</td>
+                <td id='case514'>...</td>
+            </tr>
+            <tr>
+                <td id='case520'>...</td>
+                <td id='case521'>...</td>
+                <td id='case522'>...</td>
+                <td id='case523'>...</td>
+                <td id='case524'>...</td>
+            </tr>
+            <tr>
+                <td id='case530'>...</td>
+                <td id='case531'>...</td>
+                <td id='case532'>...</td>
+                <td id='case533'>...</td>
+                <td id='case534'>...</td>
+            </tr>
+            <tr>
+                <td id='case540'>...</td>
+                <td id='case541'>...</td>
+                <td id='case542'>...</td>
+                <td id='case543'>...</td>
+                <td id='case544'>...</td>
+            </tr>
+            <tr>
+                <td id='case550'>...</td>
+                <td id='case551'>...</td>
+                <td id='case552'>...</td>
+                <td id='case553'>...</td>
+                <td id='case554'>...</td>
+            </tr>
+        </table><br />
+    </form>
+
+    <form name='tableau6'>
+        <table>
+            <tr>
+                <td id='case600'>...</td>
+                <td id='case601'>...</td>
+                <td id='case602'>...</td>
+                <td id='case603'>...</td>
+                <td id='case604'>...</td>
+                <td id='case605'>...</td>
+            </tr>
+            <tr>
+                <td id='case610'>...</td>
+                <td id='case611'>...</td>
+                <td id='case612'>...</td>
+                <td id='case613'>...</td>
+                <td id='case614'>...</td>
+                <td id='case615'>...</td>
+            </tr>
+            <tr>
+                <td id='case620'>...</td>
+                <td id='case621'>...</td>
+                <td id='case622'>...</td>
+                <td id='case623'>...</td>
+                <td id='case624'>...</td>
+                <td id='case625'>...</td>
+            </tr>
+            <tr>
+                <td id='case630'>...</td>
+                <td id='case631'>...</td>
+                <td id='case622'>...</td>
+                <td id='case633'>...</td>
+                <td id='case634'>...</td>
+                <td id='case635'>...</td>
+            </tr>
+            <tr>
+                <td id='case640'>...</td>
+                <td id='case641'>...</td>
+                <td id='case642'>...</td>
+                <td id='case643'>...</td>
+                <td id='case644'>...</td>
+                <td id='case645'>...</td>
+            </tr>
+            <tr>
+                <td id='case650'>...</td>
+                <td id='case651'>...</td>
+                <td id='case652'>...</td>
+                <td id='case653'>...</td>
+                <td id='case654'>...</td>
+                <td id='case655'>...</td>
+            </tr>
+        </table><br />
+    </form>
+
+    <form name='tableau7'>
+        <table>
+            <tr>
+                <td id='case700'>...</td>
+                <td id='case701'>...</td>
+                <td id='case702'>...</td>
+                <td id='case703'>...</td>
+                <td id='case704'>...</td>
+                <td id='case705'>...</td>
+                <td id='case706'>...</td>
+            </tr>
+            <tr>
+                <td id='case710'>...</td>
+                <td id='case711'>...</td>
+                <td id='case712'>...</td>
+                <td id='case713'>...</td>
+                <td id='case714'>...</td>
+                <td id='case715'>...</td>
+                <td id='case716'>...</td>
+            </tr>
+            <tr>
+                <td id='case720'>...</td>
+                <td id='case721'>...</td>
+                <td id='case722'>...</td>
+                <td id='case723'>...</td>
+                <td id='case724'>...</td>
+                <td id='case725'>...</td>
+                <td id='case726'>...</td>
+            </tr>
+            <tr>
+                <td id='case730'>...</td>
+                <td id='case731'>...</td>
+                <td id='case722'>...</td>
+                <td id='case733'>...</td>
+                <td id='case734'>...</td>
+                <td id='case735'>...</td>
+                <td id='case736'>...</td>
+            </tr>
+            <tr>
+                <td id='case740'>...</td>
+                <td id='case741'>...</td>
+                <td id='case742'>...</td>
+                <td id='case743'>...</td>
+                <td id='case744'>...</td>
+                <td id='case745'>...</td>
+                <td id='case746'>...</td>
+            </tr>
+            <tr>
+                <td id='case750'>...</td>
+                <td id='case751'>...</td>
+                <td id='case752'>...</td>
+                <td id='case753'>...</td>
+                <td id='case754'>...</td>
+                <td id='case755'>...</td>
+                <td id='case756'>...</td>
+            </tr>
+        </table>
+    </form>
+
+    <p id='reponse3'>.</p>
+
+</body>
+
+</html>

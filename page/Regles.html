@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<link rel='stylesheet' href='../css/regle_style.css'>
+
+<head>
+    <title> Règles du motus ! </title>
+    <META charset="UTF-8" />
+</head>
+
+<body>
+    <h1> Les règles ! </h1>
+
+    <script>
+        function regles() {
+            var regle = " Le but du jeu consiste à trouver un mot choisi par l'ordinateur au hasard dans le dictionnaire. <br> Pour ceci le joueur a <span2> six </span2>essais avec lesquelles il pourra taper <span2> six </span2>mots différents. <br> Pour aider le joueur, lorsqu'une lettre se trouve dans le mot mais qu'elle n'est pas au bon endroit la lettre changera de couleur et se mettra en<span1> jaune</span1>. <br> Par contre si la lettre correspond à la lettre du mot mystère et se trouve au bon endroit celle-ci deviendra <span>rouge</span>. "
+            var bouton = "<br/><input type='Button' value='Voir un exemple' onclick = 'bouton_fonc()'>"
+            document.getElementById("reponse1").innerHTML = regle;
+            document.getElementById("reponse1").style.color = "orange";
+            document.getElementById("reponse2").innerHTML = bouton;
+        }
+
+        function bouton_fonc() {
+            var tableau = "<table> <tr> <td id = 'case400'><span>t</span></td><td id = 'case401'>o</td><td id = 'case402'>u</td><td id = 'case403'><span1>r</span1></td></tr></table>"
+            var texte_exemple = "Par exemple ici le mot mystere est <span2>tard</span2>, et l'essai du joueur est le mot <span2>tour</span2>. <br> On va donc voir que les deux 't' se trouve à la même place donc on aura la couleur <span>rouge </span>et le r ne sera pas à la bonne place mais présent dans le mot mystère et prendra la couleur <span1>jaune</span1> ."
+            document.getElementById("reponse3").innerHTML = tableau;
+            document.getElementById("reponse4").innerHTML = texte_exemple;
+            document.getElementById("reponse4").style.color = "orange";
+            var texte_aurevoir = "<h3> Voilà, maintenant vous connaissez les règles de notre jeu, je vous souhaite de bien vous amuser et si vous souhaitez retourner sur la page principale cliquez sur le lien en bas de la page ! </h3>"
+            var bouton_aurevoir = "<br/><button onclick='Poulpibon.htm;'>Cliquez Ici</button>"
+            document.getElementById("reponse5").innerHTML = texte_aurevoir;
+        }
+
+    </script>
+
+
+    <form name='saisie'>
+        <h3> Vous vous demandez comment fonctionne le jeu que nous avons codé alors cliquez sur ce bouton pour le
+            découvrir ! </h3>
+        <br /><input type='Button' value='Découvrir les règles' onclick='regles()'>
+
+        <br />
+        <p id='reponse1'></p>
+        <br />
+        <p id='reponse2'></p>
+        <br />
+        <p id='reponse3'></p>
+        <br />
+        <p id='reponse4'></p>
+        <br />
+        <p id='reponse5'></p>
+        <br />
+        <p id='reponse6'></p>
+        La page du jeu : <a href="../index.html"> Motus </a>
+
+
+</body>
+
+</html>
